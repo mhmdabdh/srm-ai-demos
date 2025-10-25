@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/../04_srm_ai_integrations/.idea/04_srm_ai_integrations.iml" filepath="$PROJECT_DIR$/../04_srm_ai_integrations/.idea/04_srm_ai_integrations.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/05_go_assignments.iml" filepath="$PROJECT_DIR$/.idea/05_go_assignments.iml" />
+    </modules>
+  </component>
+</project>

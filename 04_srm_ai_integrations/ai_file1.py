@@ -1,30 +1,29 @@
-import requests
-import json
+from huggingface_hub import InferenceClient
+import traceback
 
+MODEL = "HuggingFaceH4/zephyr-7b-beta"
+TOKEN = "insert_your_HF_token"  # Replace with your real key
 
-# Replace with your actual API key
-#INSERT HUGGING FACE API KEY
+print("🚀 Starting Hugging Face connection test...")
 
-# The Gemma3-1B API endpoint
-API_URL = "https://api.huggingface.co/models/gemma2-2b"  #Example, check the documentation!
+try:
+    client = InferenceClient(model=MODEL, token=TOKEN)
 
-def get_data_from_gemma3(api_key):
-    """
-    Fetches data from the Gemma3-1B API.
-    """
-    try:
-        response = requests.post(API_URL, headers={"Content-Type": "application/json"}, data="Your data here") #Replace with real request.
-        response.raise_for_status()  # Raise HTTPError for bad responses (4xx or 5xx)
-        return response.json()
-    except requests.exceptions.RequestException as e:
-        print(f"Error during API request: {e}")
-        return None
+    messages = [
+        {"role": "system", "content": "You are a helpful AI assistant."},
+        {"role": "user", "content": "Explain what Kubernetes is in one paragraph."}
+    ]
 
-if __name__ == "__main__":
-    data = get_data_from_gemma3(API_KEY)
+    response = client.chat.completions.create(
+        model=MODEL,
+        messages=messages,
+        max_tokens=200,
+        temperature=0.7,
+    )
 
-    if data:
-        print("Data from Gemma3-1B:")
-        print(data)
-    else:
-        print("Failed to retrieve data.")
+    print("\n✅ Response from Hugging Face:\n")
+    print(response.choices[0].message["content"])
+
+except Exception as e:
+    print("❌ Error during API request:")
+    traceback.print_exc()
